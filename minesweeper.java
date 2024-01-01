@@ -27,28 +27,33 @@ class minesweeper{
         System.out.println("* Represents a square of hidden value.");
         System.out.println("M Represents a square that has been marked.");
         System.out.println("B Represents an unveiled mine.");
+        System.out.println("");
         System.out.println("An unveiled number represents the number of mines adjacent to that square.");
         System.out.println("");
         playGame();
     }
     
+    /*
+    at the start of each round, the user inputs the x-dimension, y-dimension, and the number of mines. 
+    once a board has been successfully created, mine locations are randomized. board is then hidden.
+    */
     public static int[] startGame(){
         Scanner dimX1 = new Scanner(System.in);
-        System.out.println("Please enter the x-dimension (" + xMax + "): ");
+        System.out.println("Please enter the x-dimension (max " + xMax + "): ");
         int xDim = dimX1.nextInt();
         while (xDim < 1 || xDim > xMax){
             System.out.println("This x-dimension is not within the bounds. Please try again: ");
             Scanner dimX2 = new Scanner(System.in);
-            System.out.println("Please enter the x-dimension (" + xMax + "): ");
+            System.out.println("Please enter the x-dimension (max " + xMax + "): ");
             xDim = dimX2.nextInt();
         }
         Scanner dimY1 = new Scanner(System.in);
-        System.out.println("Please enter the y-dimension (" + yMax + "): ");
+        System.out.println("Please enter the y-dimension (max " + yMax + "): ");
         int yDim = dimY1.nextInt();
         while (yDim < 1 || yDim > yMax){
             System.out.println("This y-dimension is not within the bounds. Please try again: ");
             Scanner dimY2 = new Scanner(System.in);
-            System.out.println("Please enter the y-dimension (" + yMax + ")");
+            System.out.println("Please enter the y-dimension (max " + yMax + ")");
             yDim = dimY2.nextInt();
         }
         Scanner numMines1 = new Scanner(System.in);
@@ -63,7 +68,7 @@ class minesweeper{
         currXDim = xDim;
         currYDim = yDim;
         currNumMines = numMines;
-
+        //creates board
         int[] gameBoard = createBoard(xDim, yDim);
         spreadMines(gameBoard, xDim, yDim, numMines);
         computeNeighbours(gameBoard, xDim, yDim);
@@ -85,6 +90,7 @@ class minesweeper{
         }
     }
 
+    //gets user action: whether they want to mark or show the location of the spot, or restart/quit
     public static int userAction(){
         Scanner userInput = new Scanner(System.in);  // Create a Scanner object
         System.out.println("Actions available:");
@@ -150,6 +156,7 @@ class minesweeper{
         return true;
     }
 
+    //helper function to prompt user for the x location
     public static int getXLoc(int xDim){
         Scanner input1 = new Scanner(System.in);
         System.out.println("Please enter your desired x-location (max " + (xDim - 1) + "): ");
@@ -163,6 +170,7 @@ class minesweeper{
         return xLoc;
     }
 
+    //helper function to prompt user for the y location
     public static int getYLoc(int yDim){
         Scanner input1 = new Scanner(System.in);
         System.out.println("Please enter your desired y-location (max " + (yDim - 1) + "): ");
@@ -176,12 +184,14 @@ class minesweeper{
         return yLoc;
     }
 
+    //mark the value of a specified location
     public static void actionMark(int[] board, int xDim, int yDim, int xLoc, int yLoc){
         if (markLoc(board, xDim, yDim, xLoc, yLoc) == 1){
             System.out.println("This location is already revealed. Please try again.");
         }
     }
 
+    //show the value of a specified location
     public static void actionShow(int[] board, int xDim, int yDim, int xLoc, int yLoc){
         if ((board[yLoc * xDim + xLoc] & marked) == marked){
             System.out.println("Location is marked, and cannot be revealed.");
@@ -196,11 +206,13 @@ class minesweeper{
         }
     }
 
-    public static int randnum(int max){
+    //generate a random number
+    public static int randnum(int max) {
         Random rand = new Random();
         return rand.nextInt(max);
       }
 
+    //spread specified number of mines through the board
     public static void spreadMines(int[] board, int xDim, int yDim, int numMines){
         for (int mines = 0 ; mines < numMines; mines++){
             int genRan = randnum(xDim * yDim - 1);
@@ -211,22 +223,25 @@ class minesweeper{
         }
     }
 
+    //create an empty board
     public static int[] createBoard(int xDim, int yDim){
         int[] board = new int[xDim * yDim];
         return board;
     }
 
+    //delete a board
     public static void deleteBoard(int[] board){
         board = null;
     }
 
+    //hide all values of the board
     public static void hideBoard(int[] board, int xDim, int yDim){
         for (int i = 0; i < xDim * yDim; i++){
             board[i] |= hidden;
         }
     }
 
-
+    //print the whole board
     public static void printBoard(int[] board, int xDim, int yDim){
         System.out.println("Printing Board: ");
         //printing column numbers
@@ -274,6 +289,7 @@ class minesweeper{
         
     }
     
+    //checking whether or not the game is won
     public static boolean isWon(int[] board, int xDim, int yDim){
         for (int i = 0; i < xDim * yDim; i++){
             //if there a value on the board that is not 9 and is hidden

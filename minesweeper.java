@@ -216,7 +216,7 @@ class minesweeper{
     public static void spreadMines(int[] board, int xDim, int yDim, int numMines){
         for (int mines = 0 ; mines < numMines; mines++){
             int genRan = randnum(xDim * yDim - 1);
-            //if the value is not already a goose
+            //if the value is not already a mine
             if ((board[genRan] & value) != 9){
                 board[genRan] = 9;
             }

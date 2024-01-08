@@ -12,8 +12,8 @@ class minesweeper{
     private static final int marked = 0x10;
     private static final int value = 0x0F; 
     private static final int hidden = 0x20; 
-    private static final int xMax = 39;
-    private static final int yMax = 39;
+    private static final int xMax = 50;
+    private static final int yMax = 50;
     public static int currXDim;
     public static int currYDim;
     public static int currNumMines;

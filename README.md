@@ -3,7 +3,7 @@
 ## Project Description
 
 #### Welcome to my Minesweeper project! This is a simple minesweeper game with max board 
-#### size of dimensions 39 x 39. For each square of the board, binary operators are used to
+#### size of dimensions 50 x 50. For each square of the board, binary operators are used to
 #### determine whether the square at that position should be hidden, marked, or revealed.
 #### When a mine is overturned, the game ends. The player wins when all non-mines have been
 #### revealed. 
